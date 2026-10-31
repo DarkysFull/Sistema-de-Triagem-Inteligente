@@ -19,22 +19,61 @@ st.title("🏙️ Central de Ocorrências Urbanas")
 st.markdown("### Bairro Nova Cidade - Matão / SP")
 st.write("Registre problemas de infraestrutura, saneamento ou arborização com foto e geolocalização.")
 
-# Modelo de IA pré-treinado para demonstração
+# Base de treinamento expandida para garantir maior precisão da IA
 textos_exemplo = [
+    # Infraestrutura / Vias
     "buraco enorme na rua atrapalhando os carros", 
+    "asfalto quebrado e esburacado na via pública",
+    "cratera aberta no meio da rua causando risco de acidente",
+    "buraco na rua com risco de acidente",
+    "piso cedendo e afundamento de asfalto",
+    
+    # Saneamento / Água
     "falta de água na torneira há três dias", 
+    "torneira seca sem pingo de água em casa",
+    "água da rua saindo turva, suja e com cheiro forte",
+    "vazamento de esgoto na calçada a céu aberto",
+    "cano estourado jorrando água na rua",
+    
+    # Arborização
     "árvore com galhos caindo na fiação elétrica",
-    "lâmpada da praça queimada escuro",
-    "vazamento de esgoto na calçada",
-    "água da rua saindo suja e com cheiro forte"
+    "galhos grandes de árvore atrapalhando a passagem",
+    "necessidade de poda de árvore na calçada",
+    "raiz de árvore levantando o piso da calçada",
+    
+    # Iluminação Pública
+    "lâmpada da praça queimada e tudo muito escuro",
+    "poste de luz apagado na rua inteira à noite",
+    "fiação exposta no poste soltando faísca",
+    "luminária pública quebrada gerando insegurança"
 ]
+
 classes_exemplo = [
+    # Infraestrutura / Vias
     "Infraestrutura / Vias", 
+    "Infraestrutura / Vias", 
+    "Infraestrutura / Vias", 
+    "Infraestrutura / Vias", 
+    "Infraestrutura / Vias",
+    
+    # Saneamento / Água
     "Saneamento / Água", 
+    "Saneamento / Água", 
+    "Saneamento / Água", 
+    "Saneamento / Água", 
+    "Saneamento / Água",
+    
+    # Arborização
     "Arborização", 
+    "Arborização", 
+    "Arborização", 
+    "Arborização",
+    
+    # Iluminação Pública
     "Iluminação Pública", 
-    "Saneamento / Água", 
-    "Saneamento / Água"
+    "Iluminação Pública", 
+    "Iluminação Pública", 
+    "Iluminação Pública"
 ]
 
 vetorizador = TfidfVectorizer()
