@@ -200,4 +200,4 @@ if submitted:
             st.session_state.contador_ocorrencias += 1
             
         except Exception as e:
-            st.warning(f"Ocorrência registrada sob o protocolo **{numero_protocolo}** com sucesso!
+            st.warning(f"Ocorrência registada sob o protocolo **{numero_protocolo}** com sucesso!)
