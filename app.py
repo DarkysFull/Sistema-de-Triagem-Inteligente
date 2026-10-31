@@ -157,7 +157,7 @@ if submitted:
 
         # Configuração de Envio de E-mail via Outlook (SMTP)
         try:
-            remetente = "vitor_hugo@outlook.com" 
+            remetente = "vitor_hugo4@outlook.com" 
             destinatario_principal = "vitor_hugo@outlook.com" 
             
             msg = MIMEMultipart()
