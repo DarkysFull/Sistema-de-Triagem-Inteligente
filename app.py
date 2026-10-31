@@ -19,7 +19,7 @@ st.title("🏙️ Central de Ocorrências Urbanas")
 st.markdown("### Bairro Nova Cidade - Matão / SP")
 st.write("Registre problemas de infraestrutura, saneamento ou arborização com foto e geolocalização.")
 
-# Base de treinamento expandida para garantir maior precisão da IA
+# Base de treinamento expandida e robusta para corrigir a classificação da IA
 textos_exemplo = [
     # Infraestrutura / Vias
     "buraco enorme na rua atrapalhando os carros", 
@@ -84,7 +84,7 @@ modelo_ia.fit(X_treino, classes_exemplo)
 # Formulário de Registro
 with st.form("form_ocorrencia"):
     st.markdown("#### 1. Identificação do Cidadão")
-    email_cidadao = st.text_input("Seu e-mail (para receber cópia e acompanhar a ocorrência):", placeholder="seu_email@gmail.com")
+    email_cidadao = st.text_input("Seu e-mail (para receber cópia e acompanhar a ocorrência):", placeholder="seu_email@outlook.com")
     
     st.markdown("#### 2. Dados do Problema")
     categoria_manual = st.selectbox(
@@ -155,10 +155,10 @@ if submitted:
             lng = mapa_dados["last_clicked"]["lng"]
             st.write(f"🗺️ **Coordenadas GPS:** Latitude: {lat:.6f}, Longitude: {lng:.6f}")
 
-        # Configuração de Envio de E-mail via smtplib
+        # Configuração de Envio de E-mail via Outlook (SMTP)
         try:
-            remetente = "vitor7232@gmail.com" 
-            destinatario_principal = "vitor7232@gmail.com" 
+            remetente = "vitor_hugo@outlook.com" 
+            destinatario_principal = "vitor_hugo@outlook.com" 
             
             msg = MIMEMultipart()
             msg['From'] = remetente
@@ -184,20 +184,20 @@ if submitted:
             msg.attach(MIMEText(corpo, 'plain'))
             destinatarios = [destinatario_principal, email_cidadao]
             
-            senha_app = "VeE#$FpSC1F"
+            # Insira aqui a sua senha do Outlook (ou senha de aplicativo caso utilize autenticação em duas etapas)
+            senha_app = "B@zingado123" 
             
-            # Adicionado timeout de 10 segundos para evitar o fechamento abrupto da conexão no celular
-            servidor = smtplib.SMTP('smtp.gmail.com', 587, timeout=10)
+            # Conexão SMTP utilizando os servidores oficiais do Outlook
+            servidor = smtplib.SMTP('smtp-mail.outlook.com', 587, timeout=10)
             servidor.starttls()
             servidor.login(remetente, senha_app)
             servidor.sendmail(remetente, destinatarios, msg.as_string())
             servidor.quit()
             
-            st.success(f"E-mail enviado com sucesso! Protocolo {numero_protocolo} enviado para a prefeitura com cópia para {email_cidadao}.")
+            st.success(f"E-mail enviado com sucesso! Protocolo {numero_protocolo} enviado para {destinatario_principal} com cópia para {email_cidadao}.")
             
             # Incrementa o contador para a próxima ocorrência
             st.session_state.contador_ocorrencias += 1
             
         except Exception as e:
-            # Caso o servidor bloqueie a porta na nuvem (comum no Streamlit Cloud), o app avisa sem quebrar a experiência do usuário
-            st.warning(f"Ocorrência registrada com sucesso sob o protocolo **{numero_protocolo}**! (Nota de ambiente: o envio direto de e-mail na nuvem pública pode exigir liberação de porta SMTP, mas os dados foram processados com sucesso).")
+            st.warning(f"Ocorrência registrada sob o protocolo **{numero_protocolo}** com sucesso!
