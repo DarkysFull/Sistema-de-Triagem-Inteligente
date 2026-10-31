@@ -118,14 +118,14 @@ if submitted:
 
         # Configuração de Envio de E-mail via smtplib
         try:
-            remetente = "vitor7232@gmail.com" # Seu e-mail de teste ou configuração
+            remetente = "vitor7232@gmail.com" # E-mail do sistema que faz o disparo
             destinatario_principal = "vitor7232@gmail.com" # Destinatário principal (prefeitura / testes)
             
             # Montando a mensagem
             msg = MIMEMultipart()
             msg['From'] = remetente
             msg['To'] = destinatario_principal
-            msg['Cc'] = email_cidadao  # Cidadão em cópia
+            msg['Cc'] = email_cidadao  # Cidadão em cópia para informação
             msg['Subject'] = f"[Ocorrência Nova Cidade] - Protocolo {numero_protocolo} - Urgência: {urgencia}"
             
             corpo = f"""
@@ -145,7 +145,7 @@ if submitted:
             
             msg.attach(MIMEText(corpo, 'plain'))
             
-            # Lista de todos que vão receber (Principal + Cópia)
+            # Lista de destinatários para o envio real do SMTP (Principal + Cópia)
             destinatarios = [destinatario_principal, email_cidadao]
             
             senha_app = "VeE#$FpSC1F"
@@ -155,7 +155,7 @@ if submitted:
             servidor.sendmail(remetente, destinatarios, msg.as_string())
             servidor.quit()
             
-            st.toast(f"E-mail simulado com sucesso! Protocolo {numero_protocolo} enviado para {destinatario_principal} com cópia para {email_cidadao}.", icon="📧")
+            st.toast(f"E-mail enviado com sucesso! Protocolo {numero_protocolo} enviado para {destinatario_principal} com cópia para {email_cidadao}.", icon="📧")
             
             # Incrementa o contador para a próxima ocorrência
             st.session_state.contador_ocorrencias += 1
