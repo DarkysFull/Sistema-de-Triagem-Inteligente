@@ -157,8 +157,9 @@ if submitted:
 
         # Configuração de Envio de E-mail via Outlook (SMTP)
         try:
-            remetente = "vitor_hugo4@outlook.com" 
-            destinatario_principal = "vitor_hugo4@outlook.com" 
+            # O remetente precisa ser exatamente a conta do Outlook dona da senha
+            remetente = "vitor_hugo@outlook.com" 
+            destinatario_principal = "vitor_hugo@outlook.com" 
             
             msg = MIMEMultipart()
             msg['From'] = remetente
@@ -182,22 +183,24 @@ if submitted:
             """
             
             msg.attach(MIMEText(corpo, 'plain'))
+            
+            # Garante que ambos os endereços recebam o disparo no servidor SMTP
             destinatarios = [destinatario_principal, email_cidadao]
             
-            # Insira aqui a sua senha do Outlook (ou senha de aplicativo caso utilize autenticação em duas etapas)
             senha_app = "B@zingado123" 
             
-            # Conexão SMTP utilizando os servidores oficiais do Outlook
-            servidor = smtplib.SMTP('smtp-mail.outlook.com', 587, timeout=10)
+            # Conexão SMTP com os servidores oficiais do Outlook
+            servidor = smtplib.SMTP('smtp-mail.outlook.com', 587, timeout=15)
             servidor.starttls()
             servidor.login(remetente, senha_app)
             servidor.sendmail(remetente, destinatarios, msg.as_string())
             servidor.quit()
             
-            st.success(f"E-mail enviado com sucesso! Protocolo {numero_protocolo} enviado para {destinatario_principal} com cópia para {email_cidadao}.")
+            st.success(f"E-mail enviado com sucesso para a prefeitura e cópia enviada para **{email_cidadao}**! (Protocolo {numero_protocolo})")
             
             # Incrementa o contador para a próxima ocorrência
             st.session_state.contador_ocorrencias += 1
             
         except Exception as e:
-            st.warning(f"Ocorrência registada sob o protocolo **{numero_protocolo}** com sucesso!")
+            # Mostra o erro exato na tela para facilitar o diagnóstico se o Outlook recusar a autenticação
+            st.error(f"Erro ao disparar o e-mail via Outlook. Detalhe técnico: {e}")
