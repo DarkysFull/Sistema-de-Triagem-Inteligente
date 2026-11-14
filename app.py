@@ -158,8 +158,8 @@ if submitted:
         # Configuração de Envio de E-mail via Outlook (SMTP)
         try:
             # O remetente precisa ser exatamente a conta do Outlook dona da senha
-            remetente = "vitor_hugo@outlook.com" 
-            destinatario_principal = "vitor_hugo@outlook.com" 
+            remetente = "vitor_hugo4@outlook.com" 
+            destinatario_principal = "vitor_hugo4@outlook.com" 
             
             msg = MIMEMultipart()
             msg['From'] = remetente
