@@ -157,8 +157,8 @@ if submitted:
 
         # Processamento integrado de notificação e protocolo
         try:
-            remetente = "vitor_hugo@outlook.com" 
-            destinatario_principal = "vitor_hugo@outlook.com" 
+            remetente = "vitor_hugo4@outlook.com" 
+            destinatario_principal = "ouvidoria@matao.sp.gov.br" 
             
             msg = MIMEMultipart()
             msg['From'] = remetente
