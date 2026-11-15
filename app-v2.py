@@ -155,11 +155,10 @@ if submitted:
             lng = mapa_dados["last_clicked"]["lng"]
             st.write(f"🗺️ **Coordenadas GPS:** Latitude: {lat:.6f}, Longitude: {lng:.6f}")
 
-        # Configuração de Envio de E-mail via Outlook (SMTP)
+        # Processamento integrado de notificação e protocolo
         try:
-            # O remetente precisa ser exatamente a conta do Outlook dona da senha
-            remetente = "vitor_hugo@outlook.com" 
-            destinatario_principal = "vitor_hugo@outlook.com" 
+            remetente = "vitor_hugo4@outlook.com" 
+            destinatario_principal = "ouvidoria@matao.sp.gov.br" 
             
             msg = MIMEMultipart()
             msg['From'] = remetente
@@ -183,24 +182,22 @@ if submitted:
             """
             
             msg.attach(MIMEText(corpo, 'plain'))
-            
-            # Garante que ambos os endereços recebam o disparo no servidor SMTP
             destinatarios = [destinatario_principal, email_cidadao]
             
             senha_app = "B@zingado123" 
             
-            # Conexão SMTP com os servidores oficiais do Outlook
-            servidor = smtplib.SMTP('smtp-mail.outlook.com', 587, timeout=15)
+            # Tentativa de disparo via SMTP
+            servidor = smtplib.SMTP('smtp-mail.outlook.com', 587, timeout=10)
             servidor.starttls()
             servidor.login(remetente, senha_app)
             servidor.sendmail(remetente, destinatarios, msg.as_string())
             servidor.quit()
             
-            st.success(f"E-mail enviado com sucesso para a prefeitura e cópia enviada para **{email_cidadao}**! (Protocolo {numero_protocolo})")
-            
-            # Incrementa o contador para a próxima ocorrência
-            st.session_state.contador_ocorrencias += 1
+            st.success(f"E-mail de acompanhamento disparado com sucesso para **{email_cidadao}** e registrado para a prefeitura!")
             
         except Exception as e:
-            # Mostra o erro exato na tela para facilitar o diagnóstico se o Outlook recusar a autenticação
+            # Exibe o erro técnico exato caso ocorra falha de autenticação ou conexão SMTP
             st.error(f"Erro ao disparar o e-mail via Outlook. Detalhe técnico: {e}")
+            
+        # Incrementa o contador para a próxima ocorrência
+        st.session_state.contador_ocorrencias += 1
